@@ -10,6 +10,8 @@ void main() {
 }
 
 class PlotLabApp extends StatelessWidget {
+  const PlotLabApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -20,6 +22,8 @@ class PlotLabApp extends StatelessWidget {
 }
 
 class UploadScreen extends StatefulWidget {
+  const UploadScreen({super.key});
+
   @override
   _UploadScreenState createState() => _UploadScreenState();
 }
@@ -87,7 +91,7 @@ class _UploadScreenState extends State<UploadScreen> {
 
 class ColumnSelectionScreen extends StatefulWidget {
   final List<String> columns;
-  ColumnSelectionScreen({required this.columns});
+  const ColumnSelectionScreen({super.key, required this.columns});
 
   @override
   _ColumnSelectionScreenState createState() => _ColumnSelectionScreenState();
