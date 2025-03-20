@@ -7,7 +7,7 @@ from typing import List, Union
 
 # --- 1. Load the Trained Model ---
 try:
-    model_path = "../summative/linear_regression/economic_impact_model.pkl"
+    model_path = "../linear_regression/economic_impact_model.pkl"
     model = joblib.load(model_path)
     print(f"Successfully loaded model from: {model_path}")
 except FileNotFoundError:
