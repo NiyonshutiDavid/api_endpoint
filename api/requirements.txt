@@ -64,7 +64,6 @@ python-dateutil==2.9.0.post0
 python-dotenv==1.0.1
 python-multipart==0.0.20
 pytz==2024.2
-pywin32==304
 pyzmq==26.2.1
 requests==2.31.0
 rfc3986==1.5.0
