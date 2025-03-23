@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+
 void main() {
   runApp(MyApp());
 }
@@ -62,9 +63,16 @@ class PredictionPage extends StatefulWidget {
 }
 
 class _PredictionPageState extends State<PredictionPage> {
-  final irrigationController = TextEditingController();
+  final yearController = TextEditingController();
   final temperatureController = TextEditingController();
-  final rainfallController = TextEditingController();
+  final precipitationController = TextEditingController();
+  final co2EmissionsController = TextEditingController();
+  final irrigationController = TextEditingController();
+  final extremeWeatherEventsController = TextEditingController();
+  final pesticideUseController = TextEditingController();
+  final fertilizerUseController = TextEditingController();
+  final soilHealthIndexController = TextEditingController();
+  final cropYieldController = TextEditingController();
 
   String predictionResult = "";
   String apiUrl = "https://api-endpoint-dtym.onrender.com"; 
@@ -75,17 +83,38 @@ class _PredictionPageState extends State<PredictionPage> {
         Uri.parse("$apiUrl/predict"),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode({
-          "Irrigation_Access_%": double.tryParse(irrigationController.text) ?? 0.0, 
-          "Average_Temperature_Celsius": double.tryParse(temperatureController.text) ?? 0.0,
-          "Annual_Rainfall_mm": double.tryParse(rainfallController.text) ?? 0.0,
+          "Year": int.tryParse(temperatureController.text) ?? 0,
+          "Average_Temperature_C": double.tryParse(temperatureController.text) ?? 0.0,
+          "Total_Precipitation_mm": double.tryParse(precipitationController.text) ?? 0.0,
+          "CO2_Emissions_MT": double.tryParse(co2EmissionsController.text) ?? 0.0,
+          "Irrigation_Access_Percent": double.tryParse(irrigationController.text) ?? 0.0,
+          "Extreme_Weather_Events": int.tryParse(extremeWeatherEventsController.text) ?? 0,
+          "Pesticide_Use_KG_per_HA": double.tryParse(pesticideUseController.text) ?? 0.0,
+          "Fertilizer_Use_KG_per_HA": double.tryParse(fertilizerUseController.text) ?? 0.0,
+          "Soil_Health_Index": double.tryParse(soilHealthIndexController.text) ?? 0.0,
+          "Crop_Yield_MT_per_HA": double.tryParse(cropYieldController.text) ?? 0.0,
         }),
       );
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
-        setState(() {
-          predictionResult = "**Predicted Economic Impact:** \n${data['Predicted Economic Impact (Million USD)']} Million USD";
-        });
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text("Predicted Economic Impact"),
+              content: Text("${data['prediction']} Million USD"),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text("Back to Predict"),
+                ),
+              ],
+            );
+          },
+        );
       } else {
         setState(() {
           predictionResult = "**Error:** ${jsonDecode(response.body)['error']}";
@@ -111,8 +140,7 @@ class _PredictionPageState extends State<PredictionPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: ListView(
           children: [
             Text(
               "**Enter Climate Data**",
@@ -120,10 +148,10 @@ class _PredictionPageState extends State<PredictionPage> {
             ),
             SizedBox(height: 10),
             TextField(
-              controller: irrigationController,
+              controller: yearController,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
-                labelText: "Irrigation Access (%)",
+                labelText: "Year",
                 border: OutlineInputBorder(),
               ),
             ),
@@ -138,10 +166,73 @@ class _PredictionPageState extends State<PredictionPage> {
             ),
             SizedBox(height: 10),
             TextField(
-              controller: rainfallController,
+              controller: precipitationController,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
-                labelText: "Annual Rainfall (mm)",
+                labelText: "Total Precipitation (mm)",
+                border: OutlineInputBorder(),
+              ),
+            ),
+            SizedBox(height: 10),
+            TextField(
+              controller: co2EmissionsController,
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(
+                labelText: "CO2 Emissions (MT)",
+                border: OutlineInputBorder(),
+              ),
+            ),
+            SizedBox(height: 10),
+            TextField(
+              controller: irrigationController,
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(
+                labelText: "Irrigation Access (%)",
+                border: OutlineInputBorder(),
+              ),
+            ),
+            SizedBox(height: 10),
+            TextField(
+              controller: extremeWeatherEventsController,
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(
+                labelText: "Extreme Weather Events",
+                border: OutlineInputBorder(),
+              ),
+            ),
+            SizedBox(height: 10),
+            TextField(
+              controller: pesticideUseController,
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(
+                labelText: "Pesticide Use (KG/HA)",
+                border: OutlineInputBorder(),
+              ),
+            ),
+            SizedBox(height: 10),
+            TextField(
+              controller: fertilizerUseController,
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(
+                labelText: "Fertilizer Use (KG/HA)",
+                border: OutlineInputBorder(),
+              ),
+            ),
+            SizedBox(height: 10),
+            TextField(
+              controller: soilHealthIndexController,
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(
+                labelText: "Soil Health Index",
+                border: OutlineInputBorder(),
+              ),
+            ),
+            SizedBox(height: 10),
+            TextField(
+              controller: cropYieldController,
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(
+                labelText: "Crop Yield (MT/HA)",
                 border: OutlineInputBorder(),
               ),
             ),
