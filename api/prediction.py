@@ -14,6 +14,7 @@ class PredictionInput(BaseModel):
     """
     Input data for predicting Economic Impact.
     """
+    Year: int
     Average_Temperature_C: float
     Total_Precipitation_mm: float
     CO2_Emissions_MT: float
@@ -23,7 +24,6 @@ class PredictionInput(BaseModel):
     Pesticide_Use_KG_per_HA: float
     Fertilizer_Use_KG_per_HA: float
     Soil_Health_Index: float
-    Year: int
     
 
 # --- 3. FastAPI App Setup ---
