@@ -53,7 +53,7 @@ The dataset used in this project is **climate_change_impact_on_agriculture_2024.
 ---
 
 ## **🎥 Video Demo**  
-🔗 **Watch the demo (max 2 minutes)**: [YouTube Link](https://youtube.com/your-demo-link)  
+🔗 **Watch the demo**: [YouTube Link](https://youtube.com/your-demo-link)  
 
 ---
 
@@ -89,6 +89,12 @@ flutter run
 ✔ **User-friendly UI**: Themed around **agriculture, climate change, and economy**.  
 
 ---
+
+## **📱 App UI **
+![welcome](https://github.com/user-attachments/assets/cb0d022a-2638-4261-843c-fedc7c75f7c9)
+![input](https://github.com/user-attachments/assets/6c719fbd-ea71-4b91-a11c-e842742b639b)
+![output](https://github.com/user-attachments/assets/905fe367-753a-4f4f-8d8a-9afe54fc9c66)
+
 
 ## **🛠️ Tech Stack**  
 - **Machine Learning Model**: `Linear Regression`  
