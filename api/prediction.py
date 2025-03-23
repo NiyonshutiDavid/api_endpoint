@@ -45,7 +45,6 @@ app.add_middleware(
 def predict(input_data: PredictionInput):
     try:
         # DataFrame from the input data
-        input_data.columns = input_data.columns.str.replace('%', 'Percent', regex=True)
         input_dict = input_data.model_dump()
         input_df = pd.DataFrame([input_dict])
 
