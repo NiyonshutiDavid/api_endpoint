@@ -24,11 +24,7 @@ class PredictionInput(BaseModel):
     Pesticide_Use_KG_per_HA: float
     Fertilizer_Use_KG_per_HA: float
     Soil_Health_Index: float
-    Year: int
-    Country: str
-    Region: str
-    Crop_Type: str
-    Adaptation_Strategies: str
+    
 
     # Add more fields based on your new dataset
 

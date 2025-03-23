@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'history_screen.dart'; // Import the History Screen
+import 'package:google_fonts/google_fonts.dart';
 
 class OutputScreen extends StatelessWidget {
   @override
@@ -29,18 +29,9 @@ class OutputScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.pop(context); // Go back to Home Screen
               },
-              child: Text('Back'),
+              child: Text('Back to Predict'),
             ),
-            SizedBox(height: 20),
-            TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => HistoryScreen()),
-                );
-              },
-              child: Text('Click here to Access recent predictions'),
-            ),
+            
           ],
         ),
       ),
