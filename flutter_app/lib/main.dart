@@ -13,8 +13,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Climate Impact Predictor',
       theme: ThemeData(
-        primaryColor: Colors.green, // Agriculture theme
-        scaffoldBackgroundColor: Colors.lightGreen[50], // Soft green background
+        primaryColor: Colors.green, 
+        scaffoldBackgroundColor: Colors.lightGreen[50], 
         textTheme: GoogleFonts.interTextTheme(), // Inter font
       ),
       home: HomePage(),
@@ -59,10 +59,9 @@ class HomePage extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                 ),
                 child: Text(
-                  'Go to Prediction',
+                  'Go to Predict',
                   style: GoogleFonts.inter(
                       fontSize: 14,
-                      fontWeight: FontWeight.bold,
                       color: Colors.white,
                       letterSpacing: -0.6),
                 ),
@@ -133,14 +132,14 @@ class _PredictionPageState extends State<PredictionPage> {
           context: context,
           builder: (context) {
             return AlertDialog(
-              title: Text("Predicted Economic Impact"),
-              content: Text("${data['prediction']} Million USD"),
+              title: Text("Predicted Economic Impact", style: GoogleFonts.inter( fontWeight: FontWeight.bold, letterSpacing: -0.6)),
+              content: Text("${data['prediction']} Million USD", style: GoogleFonts.inter( letterSpacing: -0.6)),
               actions: [
                 TextButton(
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: Text("Back to Predict"),
+                  child: Text("Back to Predict", style: GoogleFonts.inter( fontWeight: FontWeight.bold, letterSpacing: -0.6, fontSize: 14, color: const Color.fromARGB(255, 54, 92, 55))),
                 ),
               ],
             );
