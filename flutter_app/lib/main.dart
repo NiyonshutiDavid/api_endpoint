@@ -67,7 +67,7 @@ class _PredictionPageState extends State<PredictionPage> {
   final rainfallController = TextEditingController();
 
   String predictionResult = "";
-  String apiUrl = "YOUR_API_URL_HERE"; // Replace with actual API URL
+  String apiUrl = "https://api-endpoint-dtym.onrender.com"; 
 
   Future<void> predict() async {
     try {
@@ -75,7 +75,7 @@ class _PredictionPageState extends State<PredictionPage> {
         Uri.parse("$apiUrl/predict"),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode({
-          "Irrigation_Access_Percent": double.tryParse(irrigationController.text) ?? 0.0,
+          "Irrigation_Access_%": double.tryParse(irrigationController.text) ?? 0.0, 
           "Average_Temperature_Celsius": double.tryParse(temperatureController.text) ?? 0.0,
           "Annual_Rainfall_mm": double.tryParse(rainfallController.text) ?? 0.0,
         }),
@@ -170,3 +170,4 @@ class _PredictionPageState extends State<PredictionPage> {
     );
   }
 }
+

@@ -19,7 +19,7 @@ class PredictionInput(BaseModel):
     CO2_Emissions_MT: float
     Crop_Yield_MT_per_HA: float
     Extreme_Weather_Events: int
-    Irrigation_Access_%: float
+    Irrigation_Access_Percent: float
     Pesticide_Use_KG_per_HA: float
     Fertilizer_Use_KG_per_HA: float
     Soil_Health_Index: float
