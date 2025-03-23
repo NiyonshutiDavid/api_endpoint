@@ -13,7 +13,6 @@ print(f"Successfully loaded model from: {model_path}")
 class PredictionInput(BaseModel):
     """
     Input data for predicting Economic Impact.
-    Replace the fields and descriptions with your actual dataset's features.
     """
     Average_Temperature_C: float
     Total_Precipitation_mm: float
@@ -24,9 +23,8 @@ class PredictionInput(BaseModel):
     Pesticide_Use_KG_per_HA: float
     Fertilizer_Use_KG_per_HA: float
     Soil_Health_Index: float
+    Year: int
     
-
-    # Add more fields based on your new dataset
 
 # --- 3. FastAPI App Setup ---
 app = FastAPI(title="Climate Impact Prediction API",
@@ -46,7 +44,7 @@ app.add_middleware(
 @app.post("/predict")
 def predict(input_data: PredictionInput):
     try:
-        # Create a DataFrame from the input data
+        # DataFrame from the input data
         input_dict = input_data.model_dump()
         input_df = pd.DataFrame([input_dict])
 
@@ -56,7 +54,7 @@ def predict(input_data: PredictionInput):
     except Exception as e:
         return {"error": f"Prediction error: {str(e)}"}
 
-# --- 5. Run the API (for local development) ---
+# --- 5. Run the API ---
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
