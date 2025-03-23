@@ -14,7 +14,7 @@ class PredictionInput(BaseModel):
     """
     Input data for predicting Economic Impact.
     """
-    Year: int
+    
     Average_Temperature_C: float
     Total_Precipitation_mm: float
     CO2_Emissions_MT: float

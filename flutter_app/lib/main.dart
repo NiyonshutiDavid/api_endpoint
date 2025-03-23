@@ -3,7 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-
 void main() {
   runApp(MyApp());
 }
@@ -27,30 +26,55 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.green[700],
-        centerTitle: true,
-        title: Text(
-          'Climate Impact Predictor',
-          style: GoogleFonts.inter(fontWeight: FontWeight.bold, fontSize: 20),
+      body: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('./assets/background.jpg'),
+            fit: BoxFit.cover,
+          ),
         ),
-      ),
-      body: Center(
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.green[700], // Button color
-            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                'Climate Impact Predictor',
+                style: GoogleFonts.inter(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 28,
+                    letterSpacing: -0.6),
+              ),
+              SizedBox(height: 20),
+              Text(
+                'A model for predicting climate impact on economy in millions USD',
+                style: GoogleFonts.inter(fontSize: 16),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(height: 40),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFF047C59), // Button color
+                  padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                ),
+                child: Text(
+                  'Go to Prediction',
+                  style: GoogleFonts.inter(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      letterSpacing: -0.6),
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => PredictionPage()),
+                  );
+                },
+              ),
+            ],
           ),
-          child: Text(
-            'Go to Prediction',
-            style: GoogleFonts.inter(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
-          ),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => PredictionPage()),
-            );
-          },
         ),
       ),
     );
@@ -63,7 +87,6 @@ class PredictionPage extends StatefulWidget {
 }
 
 class _PredictionPageState extends State<PredictionPage> {
-  final yearController = TextEditingController();
   final temperatureController = TextEditingController();
   final precipitationController = TextEditingController();
   final co2EmissionsController = TextEditingController();
@@ -75,7 +98,7 @@ class _PredictionPageState extends State<PredictionPage> {
   final cropYieldController = TextEditingController();
 
   String predictionResult = "";
-  String apiUrl = "https://api-endpoint-dtym.onrender.com"; 
+  String apiUrl = "https://api-endpoint-dtym.onrender.com";
 
   Future<void> predict() async {
     try {
@@ -83,16 +106,24 @@ class _PredictionPageState extends State<PredictionPage> {
         Uri.parse("$apiUrl/predict"),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode({
-          "Year": int.tryParse(temperatureController.text) ?? 0,
-          "Average_Temperature_C": double.tryParse(temperatureController.text) ?? 0.0,
-          "Total_Precipitation_mm": double.tryParse(precipitationController.text) ?? 0.0,
-          "CO2_Emissions_MT": double.tryParse(co2EmissionsController.text) ?? 0.0,
-          "Irrigation_Access_Percent": double.tryParse(irrigationController.text) ?? 0.0,
-          "Extreme_Weather_Events": int.tryParse(extremeWeatherEventsController.text) ?? 0,
-          "Pesticide_Use_KG_per_HA": double.tryParse(pesticideUseController.text) ?? 0.0,
-          "Fertilizer_Use_KG_per_HA": double.tryParse(fertilizerUseController.text) ?? 0.0,
-          "Soil_Health_Index": double.tryParse(soilHealthIndexController.text) ?? 0.0,
-          "Crop_Yield_MT_per_HA": double.tryParse(cropYieldController.text) ?? 0.0,
+          "Average_Temperature_C":
+              double.tryParse(temperatureController.text) ?? 0.0,
+          "Total_Precipitation_mm":
+              double.tryParse(precipitationController.text) ?? 0.0,
+          "CO2_Emissions_MT":
+              double.tryParse(co2EmissionsController.text) ?? 0.0,
+          "Irrigation_Access_Percent":
+              double.tryParse(irrigationController.text) ?? 0.0,
+          "Extreme_Weather_Events":
+              int.tryParse(extremeWeatherEventsController.text) ?? 0,
+          "Pesticide_Use_KG_per_HA":
+              double.tryParse(pesticideUseController.text) ?? 0.0,
+          "Fertilizer_Use_KG_per_HA":
+              double.tryParse(fertilizerUseController.text) ?? 0.0,
+          "Soil_Health_Index":
+              double.tryParse(soilHealthIndexController.text) ?? 0.0,
+          "Crop_Yield_MT_per_HA":
+              double.tryParse(cropYieldController.text) ?? 0.0,
         }),
       );
 
@@ -131,134 +162,139 @@ class _PredictionPageState extends State<PredictionPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.green[700],
+        backgroundColor: const Color.fromARGB(255, 220, 221, 220),
         centerTitle: true,
         title: Text(
           'Predict Climate Impact',
-          style: GoogleFonts.inter(fontWeight: FontWeight.bold, fontSize: 20),
+          style: GoogleFonts.inter(
+              fontWeight: FontWeight.bold, fontSize: 18, letterSpacing: -0.6),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: ListView(
-          children: [
-            Text(
-              "**Enter Climate Data**",
-              style: GoogleFonts.inter(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.green[800]),
-            ),
-            SizedBox(height: 10),
-            TextField(
-              controller: yearController,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                labelText: "Year",
-                border: OutlineInputBorder(),
+      body: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('./assets/background2.jpg'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: ListView(
+            children: [
+              Text(
+                "Enter the following details to predict the economic impact of climate change :",
+                style: GoogleFonts.inter(
+                    fontSize: 18, color: Colors.black, letterSpacing: -0.6),
               ),
-            ),
-            SizedBox(height: 10),
-            TextField(
-              controller: temperatureController,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                labelText: "Avg. Temperature (°C)",
-                border: OutlineInputBorder(),
-              ),
-            ),
-            SizedBox(height: 10),
-            TextField(
-              controller: precipitationController,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                labelText: "Total Precipitation (mm)",
-                border: OutlineInputBorder(),
-              ),
-            ),
-            SizedBox(height: 10),
-            TextField(
-              controller: co2EmissionsController,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                labelText: "CO2 Emissions (MT)",
-                border: OutlineInputBorder(),
-              ),
-            ),
-            SizedBox(height: 10),
-            TextField(
-              controller: irrigationController,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                labelText: "Irrigation Access (%)",
-                border: OutlineInputBorder(),
-              ),
-            ),
-            SizedBox(height: 10),
-            TextField(
-              controller: extremeWeatherEventsController,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                labelText: "Extreme Weather Events",
-                border: OutlineInputBorder(),
-              ),
-            ),
-            SizedBox(height: 10),
-            TextField(
-              controller: pesticideUseController,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                labelText: "Pesticide Use (KG/HA)",
-                border: OutlineInputBorder(),
-              ),
-            ),
-            SizedBox(height: 10),
-            TextField(
-              controller: fertilizerUseController,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                labelText: "Fertilizer Use (KG/HA)",
-                border: OutlineInputBorder(),
-              ),
-            ),
-            SizedBox(height: 10),
-            TextField(
-              controller: soilHealthIndexController,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                labelText: "Soil Health Index",
-                border: OutlineInputBorder(),
-              ),
-            ),
-            SizedBox(height: 10),
-            TextField(
-              controller: cropYieldController,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                labelText: "Crop Yield (MT/HA)",
-                border: OutlineInputBorder(),
-              ),
-            ),
-            SizedBox(height: 20),
-            Center(
-              child: ElevatedButton(
-                onPressed: predict,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green[700],
-                  padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                ),
-                child: Text(
-                  "Predict",
-                  style: GoogleFonts.inter(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+              SizedBox(height: 10),
+              TextField(
+                controller: temperatureController,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  labelText: "Avg. Temperature (°C)",
+                  border: OutlineInputBorder(),
                 ),
               ),
-            ),
-            SizedBox(height: 20),
-            Text(
-              predictionResult,
-              style: GoogleFonts.inter(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.red[700]),
-            ),
-          ],
+              SizedBox(height: 10),
+              TextField(
+                controller: precipitationController,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  labelText: "Total Precipitation (mm)",
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 10),
+              TextField(
+                controller: co2EmissionsController,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  labelText: "CO2 Emissions (MT)",
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 10),
+              TextField(
+                controller: irrigationController,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  labelText: "Irrigation Access (%)",
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 10),
+              TextField(
+                controller: extremeWeatherEventsController,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  labelText: "Extreme Weather Events",
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 10),
+              TextField(
+                controller: pesticideUseController,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  labelText: "Pesticide Use (KG/HA)",
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 10),
+              TextField(
+                controller: fertilizerUseController,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  labelText: "Fertilizer Use (KG/HA)",
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 10),
+              TextField(
+                controller: soilHealthIndexController,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  labelText: "Soil Health Index",
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 10),
+              TextField(
+                controller: cropYieldController,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  labelText: "Crop Yield (MT/HA)",
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 20),
+              Center(
+                child: ElevatedButton(
+                  onPressed: predict,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xFF047C59),
+                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                  ),
+                  child: Text(
+                    "Predict",
+                    style: GoogleFonts.inter(
+                        fontSize: 14, color: Colors.white, letterSpacing: -0.6),
+                  ),
+                ),
+              ),
+              SizedBox(height: 20),
+              Text(
+                predictionResult,
+                style: GoogleFonts.inter(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.red[700]),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 }
-

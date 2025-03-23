@@ -17,14 +17,14 @@ The dataset used in this project is **climate_change_impact_on_agriculture_2024.
 - **Crop Yield (MT/HA)**  
 - **Economic Impact (Million USD) (Target Variable)**  
 
-### **📌 Source**: The dataset is derived from **kaggle**, data repositories, and research publications on climate change and food security.
+### **📌 Source**: The dataset is derived from **kaggle**, dataset link: [https://www.kaggle.com/datasets/waqi786/climate-change-impact-on-agriculture]
 
 ---
 
 ## **🌍 Publicly Available API Endpoint**  
-📌 **Base URL**: [https://your-api-url.onrender.com](https://your-api-url.onrender.com)  
+📌 **Base URL**: [https://api-endpoint-dtym.onrender.com/.](https://api-endpoint-dtym.onrender.com/)  
 
-📌 **Swagger UI (Test API Here)**: [https://your-api-url.onrender.com/docs](https://your-api-url.onrender.com/docs)  
+📌 **Swagger UI (Test API Here)**: [https://api-endpoint-dtym.onrender.com/docs](https://api-endpoint-dtym.onrender.com/docs)  
 
 ### **🔹 API Usage (POST Request)**
 📌 **Endpoint:** `/predict`  
